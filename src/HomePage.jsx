@@ -13,7 +13,7 @@ function HomePage() {
   useEffect(function () {
     const p = getProductList();
     p.then(function (response) {
-      setProducts(response.data.products);
+      setProducts(response);
       setLoading(false);
     });
   }, []);
@@ -44,34 +44,30 @@ function HomePage() {
   }
 
   return (
-    <div className="bg-gray-100 py-8 md:py-16 min-h-screen">
-      <div className="w-full bg-white py-8 px-9 max-w-xl sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto">
-        <div className="w-full">
-          <div className="flex flex-col gap-4">
-            <p className="text-xs text-gray-400">Home / Shop</p>
-            <h1 className="text-4xl text-primary-default mb-4">Shop</h1>
-            <Filter
-              query={query}
-              sort={sort}
-              onSearch={handleSearch}
-              onSort={handleSort}
-            />
-          </div>
-          {loading && <Loading />}
-          {!loading && filteredProducts.length > 0 && (
-            <ProductGrid products={filteredProducts} />
-          )}
-          {!loading && filteredProducts.length === 0 && (
-            <NoMatch
-              searchQuery={query}
-              onClearSearch={function () {
-                setQuery("");
-              }}
-            />
-          )}
-          <Pagination />
+    <div className="my-8 md:my-16 bg-white py-8 px-9 max-w-xl sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto">
+        <div className="flex flex-col gap-4">
+          <p className="text-xs text-gray-400">Home / Shop</p>
+          <h1 className="text-4xl text-primary-light mb-4">Shop</h1>
+          <Filter
+            query={query}
+            sort={sort}
+            onSearch={handleSearch}
+            onSort={handleSort}
+          />
         </div>
-      </div>
+        {loading && <Loading />}
+        {!loading && filteredProducts.length > 0 && (
+          <ProductGrid products={filteredProducts} />
+        )}
+        {!loading && filteredProducts.length === 0 && (
+          <NoMatch
+            searchQuery={query}
+            onClearSearch={function () {
+              setQuery("");
+            }}
+          />
+        )}
+        <Pagination />
     </div>
   );
 }

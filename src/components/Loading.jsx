@@ -1,10 +1,10 @@
 import React from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { ImSpinner9 } from "react-icons/im";
 
 function Loading() {
   return (
-    <div className="flex flex-col items-center justify-center py-12">
-      <AiOutlineLoading3Quarters className="opacity-75 text-3xl text-yellow-500" />
+    <div className="flex flex-col items-center justify-center py-12 mb-22">
+      <ImSpinner9 className="animate-spin opacity-75 text-3xl text-primary-medium" />
       <p className="mt-3 text-sm text-gray-600">Loading products…</p>
     </div>
   );

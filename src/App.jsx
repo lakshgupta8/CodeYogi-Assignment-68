@@ -8,7 +8,7 @@ import CartPage from "./CartPage";
 
 function App() {
   return (
-    <>
+    <div className="bg-gray-100 min-h-screen">
       <Navbar />
       <Routes>
         <Route index element={<HomePage />} />
@@ -16,7 +16,7 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
       </Routes>
       <Footer />
-    </>
+    </div>
   );
 }
 
