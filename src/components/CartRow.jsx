@@ -16,7 +16,7 @@ const CartRow = function ({
   }
 
   return (
-    <div className="px-4 py-3 grid grid-cols-12 gap-4 text-center items-center text-gray-800 font-medium text-sm md:text-base">
+    <div className="px-4 py-3 grid grid-cols-12 gap-4 text-center items-center text-gray-800 font-medium text-xs md:text-base">
       <button className="col-span-1 text-2xl text-gray-400 hover:text-gray-600">
         <TiDeleteOutline />
       </button>
