@@ -11,9 +11,8 @@ function HomePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(function () {
-    const p = getProductList();
-    p.then(function (response) {
-      setProducts(response);
+    getProductList().then(function (products) {
+      setProducts(products);
       setLoading(false);
     });
   }, []);
@@ -26,13 +25,17 @@ function HomePage() {
   });
 
   if (sort === "title") {
-    filteredProducts = filteredProducts.sort((a, b) =>
-      a.title.localeCompare(b.title)
-    );
+    filteredProducts = filteredProducts.sort(function (a, b) {
+      return a.title.localeCompare(b.title);
+    });
   } else if (sort === "price-asc") {
-    filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+    filteredProducts = filteredProducts.sort(function (a, b) {
+      return a.price - b.price;
+    });
   } else if (sort === "price-desc") {
-    filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+    filteredProducts = filteredProducts.sort(function (a, b) {
+      return b.price - a.price;
+    });
   }
 
   function handleSearch(newQuery) {
@@ -45,29 +48,31 @@ function HomePage() {
 
   return (
     <div className="my-8 md:my-16 bg-white py-8 px-9 max-w-xl sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto">
-        <div className="flex flex-col gap-4">
-          <p className="text-xs text-gray-400">Home / Shop</p>
-          <h1 className="text-4xl text-primary-light mb-4">Shop</h1>
-          <Filter
-            query={query}
-            sort={sort}
-            onSearch={handleSearch}
-            onSort={handleSort}
-          />
-        </div>
-        {loading && <Loading />}
-        {!loading && filteredProducts.length > 0 && (
+      <div className="flex flex-col gap-4">
+        <p className="text-xs text-gray-400">Home / Shop</p>
+        <h1 className="text-4xl text-primary-light mb-4">Shop</h1>
+        <Filter
+          query={query}
+          sort={sort}
+          onSearch={handleSearch}
+          onSort={handleSort}
+        />
+      </div>
+      {loading && <Loading />}
+      {!loading && filteredProducts.length > 0 && (
+        <>
           <ProductGrid products={filteredProducts} />
-        )}
-        {!loading && filteredProducts.length === 0 && (
-          <NoMatch
-            searchQuery={query}
-            onClearSearch={function () {
-              setQuery("");
-            }}
-          />
-        )}
-        <Pagination />
+          <Pagination />
+        </>
+      )}
+      {!loading && filteredProducts.length === 0 && (
+        <NoMatch
+          searchQuery={query}
+          onClearSearch={function () {
+            setQuery("");
+          }}
+        />
+      )}
     </div>
   );
 }

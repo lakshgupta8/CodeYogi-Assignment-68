@@ -2,9 +2,9 @@ import React from "react";
 
 function NoMatch({ searchQuery, onClearSearch}) {
   return (
-    <div className="flex flex-col items-center justify-center text-center space-y-4">
+    <div className="flex flex-col items-center text-center gap-4">
       <img
-        src="/59563728_9318692.svg"
+        src="/noresult.svg"
         alt="No Results"
         className="w-40 h-40 opacity-80"
       />
@@ -16,7 +16,7 @@ function NoMatch({ searchQuery, onClearSearch}) {
 
       <button
         onClick={onClearSearch}
-        className="bg-primary-default hover:bg-primary-medium text-white px-5 py-2 rounded-lg font-medium"
+        className="bg-primary-default hover:bg-primary-medium text-white px-5 py-2 rounded-3xl font-medium"
       >
         Clear Search
       </button>

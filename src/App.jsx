@@ -5,16 +5,20 @@ import ProductDetailPage from "./ProductDetailPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CartPage from "./CartPage";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 min-h-screen flex flex-col">
       <Navbar />
-      <Routes>
-        <Route index element={<HomePage />} />
-        <Route path="/product/:id" element={<ProductDetailPage />} />
-        <Route path="/cart" element={<CartPage />} />
-      </Routes>
+      <div className="flex-1">
+        <Routes>
+          <Route index element={<HomePage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );

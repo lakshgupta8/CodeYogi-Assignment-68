@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { TiDeleteOutline } from "react-icons/ti";
 
-const CartRow = function ({
+function CartRow ({
   item,
-  quantity = 1,
+  quantity,
   onQuantityChange = function () {},
 }) {
   const subtotal = item.price * Number(quantity);

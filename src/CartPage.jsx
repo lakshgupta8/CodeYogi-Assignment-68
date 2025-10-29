@@ -24,11 +24,11 @@ function CartPage() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100 pb-8 px-8">
+    <div className="flex flex-col md:px-8 pb-8">
       <Link to={location?.state?.from || "/"} className="self-end">
         <HiOutlineArrowNarrowLeft className="text-gray-800 text-3xl md:text-4xl" />
       </Link>
-      <div className="flex-1 w-full mx-auto bg-white p-4">
+      <div className="flex-1 bg-white p-4">
         {cartItems.length > 0 && <CartDetail cartItems={cartItems} />}
         {cartItems.length == 0 && <EmptyCart />}
       </div>

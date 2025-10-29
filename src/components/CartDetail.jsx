@@ -17,7 +17,7 @@ function CartDetail({ cartItems }) {
   }, [cartItems]);
 
   function handleQuantityChange(itemId, newQty) {
-    setQuantities((prev) => ({ ...prev, [itemId]: newQty }));
+    setQuantities(function(prev) { return { ...prev, [itemId]: newQty }; });
   }
 
   function handleUpdateCart() {
@@ -31,7 +31,7 @@ function CartDetail({ cartItems }) {
 
   return (
     <div className="flex flex-col">
-      <div className="border w-full border-gray-300 divide-y divide-gray-300">
+      <div className="border border-gray-300 divide-y divide-gray-300">
         <div className="bg-gray-50 py-2 grid grid-cols-12 text-sm sm:text-lg text-center text-black font-semibold">
           <div className="m-auto col-span-6">
             <h2>Product</h2>
