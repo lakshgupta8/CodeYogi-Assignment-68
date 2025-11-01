@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { RiShoppingBagLine } from "react-icons/ri";
 
-function Navbar() {
+function Navbar({ count }) {
   const location = useLocation();
   return (
     <div className="bg-white py-4 px-2">
@@ -17,9 +17,10 @@ function Navbar() {
         <Link
           to="/cart"
           state={{ from: location?.pathname }}
-          className="self-center px-2 md:px-0"
+          className="flex flex-col items-center relative"
         >
-          <RiShoppingBagLine className="text-primary-default text-2xl md:text-3xl" />
+          <RiShoppingBagLine className="text-primary-default text-3xl md:text-4xl" />
+          <span className="absolute top-3 right-[10] md:top-4 md:right-[14] text-[10px] md:text-xs text-primary-default">{ count }</span>
         </Link>
       </div>
     </div>
