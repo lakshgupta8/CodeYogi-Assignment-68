@@ -19,6 +19,7 @@ function ProductDetailPage({ onAddToCart }) {
 
   useEffect(
     function() {
+      setCount(1);
       getProduct(id)
         .then(function (product) {
           setProduct(product);
@@ -31,10 +32,6 @@ function ProductDetailPage({ onAddToCart }) {
     },
     [id]
   );
-
-  useEffect(function() {
-    setCount(1);
-  }, [id]);
 
   let title, image, price, description, category;
   if (product) {
@@ -50,8 +47,18 @@ function ProductDetailPage({ onAddToCart }) {
     setCount(Number(event.target.value));
   }
 
-  function handleAddToCart() {
+  function handleAddToCart(event) {
+    const button = event.currentTarget;
+    button.textContent = "ADDING...";
+    button.disabled = true;
+
+    setTimeout(function () {
+      button.textContent = "ADD TO CART";
+      button.disabled = false;
+    }, 300);
+
     onAddToCart(id, count);
+    setCount(1);
   }
 
   return (

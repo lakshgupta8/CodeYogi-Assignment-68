@@ -8,14 +8,14 @@ import CartPage from "./CartPage";
 import NotFound from "./components/NotFound";
 
 function App() {
-  const [cartItems, setCartItems] = useState({});
+  const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || {};
+  const [cartItems, setCartItems] = useState(savedCartItems);
 
   function handleAddToCart(productId, count) {
     const currentCount = cartItems[productId] || 0;
-    setCartItems({
-      ...cartItems,
-      [productId]: currentCount + count,
-    });
+    const newCartItems = { ...cartItems, [productId]: currentCount + count };
+    setCartItems(newCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(newCartItems));
   }
 
   const count = Object.keys(cartItems).reduce(function (prev, current) {
