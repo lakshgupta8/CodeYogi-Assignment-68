@@ -61,6 +61,10 @@ function ProductDetailPage({ onAddToCart }) {
     setCount(1);
   }
 
+  function handleProductSwitch() {
+    setLoading(true);
+  }
+
   return (
     <>
       {loading && <LoadingProduct />}
@@ -120,6 +124,7 @@ function ProductDetailPage({ onAddToCart }) {
                     <Link
                       to={"/product/" + (id - 1)}
                       className="flex flex-col items-center"
+                      onClick={handleProductSwitch}
                     >
                       <HiArrowSmLeft className="text-gray-800 text-3xl md:text-4xl" />
                       <p className="text-gray-800 text-sm md:text-xl">
@@ -134,6 +139,7 @@ function ProductDetailPage({ onAddToCart }) {
                     <Link
                       to={"/product/" + (id + 1)}
                       className="flex flex-col items-center"
+                      onClick={handleProductSwitch}
                     >
                       <HiArrowSmRight className="text-gray-800 text-3xl md:text-4xl" />
                       <p className="text-gray-800 text-sm md:text-xl">Next</p>
