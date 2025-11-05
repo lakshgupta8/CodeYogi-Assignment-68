@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import emptycartimage from "/images/emptycart.svg";
 
 function EmptyCart() {
   return (
     <div className="flex flex-col items-center text-center gap-4">
       <img
-        src="/emptycart.svg"
+        src={emptycartimage}
         alt="No Products"
         className="w-40 h-40 opacity-80"
       />
