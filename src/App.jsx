@@ -22,6 +22,23 @@ function App() {
     return prev + cartItems[current];
   }, 0);
 
+  function handleRemoveFromCart(productId) {
+    const newCartItems = { ...cartItems };
+    delete newCartItems[productId];
+    setCartItems(newCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(newCartItems));
+  }
+
+  function handleQuantityChange(productId, newQty) {
+    if (newQty <= 0) {
+      handleRemoveFromCart(productId);
+      return;
+    }
+    const newCartItems = { ...cartItems, [productId]: newQty };
+    setCartItems(newCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(newCartItems));
+  }
+
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
       <Navbar count={count} />
@@ -32,7 +49,16 @@ function App() {
             path="/product/:id"
             element={<ProductDetailPage onAddToCart={handleAddToCart} />}
           />
-          <Route path="/cart" element={<CartPage />} />
+          <Route
+            path="/cart"
+            element={
+              <CartPage
+                cartItems={cartItems}
+                onRemoveItem={handleRemoveFromCart}
+                onQuantityChange={handleQuantityChange}
+              />
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

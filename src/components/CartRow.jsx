@@ -2,22 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { TiDeleteOutline } from "react-icons/ti";
 
-function CartRow ({
-  item,
-  quantity,
-  onQuantityChange = function () {},
-}) {
+function CartRow({ item, quantity, onQuantityChange, onRemoveItem }) {
   const subtotal = item.price * Number(quantity);
 
   function handleChange(event) {
     const val = event.target.value;
     const num = Math.max(1, Number(val || 1));
-    onQuantityChange(num);
+    onQuantityChange(item.id, num);
+  }
+
+  function handleRemove() {
+    onRemoveItem(item.id);
   }
 
   return (
     <div className="px-4 py-3 grid grid-cols-12 gap-4 text-center items-center text-gray-800 font-medium text-xs md:text-base">
-      <button className="col-span-1 text-2xl text-gray-400 hover:text-gray-600">
+      <button
+        className="col-span-1 text-2xl text-gray-400 hover:text-gray-600"
+        onClick={handleRemove}
+      >
         <TiDeleteOutline />
       </button>
 
@@ -51,6 +54,6 @@ function CartRow ({
       <div className="col-span-3 sm:col-span-2">${subtotal.toFixed(2)}</div>
     </div>
   );
-};
+}
 
 export default CartRow;

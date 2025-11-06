@@ -1,18 +1,19 @@
 import React from "react";
 import CartRow from "./CartRow";
 
-function CartList({ items, quantities, onQuantityChange }) {
+function CartList({ items, onRemoveItem, onQuantityChange }) {
   return (
     <div className="bg-white overflow-hidden">
       <div className="divide-y divide-gray-300">
         {items.map(function (item) {
-          const qty = quantities?.[item.id] ?? 1;
+          const qty = item.quantity ?? 1;
           return (
             <CartRow
               key={item.id}
               item={item}
               quantity={qty}
-              onQuantityChange={function(newQty) {onQuantityChange(item.id, newQty)}}
+              onQuantityChange={onQuantityChange}
+              onRemoveItem={onRemoveItem}
             />
           );
         })}

@@ -4,7 +4,7 @@ import emptycartimage from "/images/emptycart.svg";
 
 function EmptyCart() {
   return (
-    <div className="flex flex-col items-center text-center gap-4">
+    <div className="flex flex-col items-center text-center gap-4 mb-32">
       <img
         src={emptycartimage}
         alt="No Products"
