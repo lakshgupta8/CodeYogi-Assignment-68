@@ -82,7 +82,6 @@ function CartRow({ item, quantity, onQuantityChange, onRemoveItem }) {
       <div className="hidden sm:block col-span-2 text-center">
         <input
           type="number"
-          min="1"
           value={quantity}
           className="border border-gray-300 px-2 py-1 w-12 sm:w-16 text-center"
           onChange={handleChange}

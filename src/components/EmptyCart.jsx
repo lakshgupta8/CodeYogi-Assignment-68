@@ -16,10 +16,11 @@ function EmptyCart() {
         details page.
       </p>
 
-      <Link to="/">
-        <button className="bg-primary-default hover:bg-primary-medium text-white px-5 py-2 mt-6 rounded-3xl font-medium">
-          EXPLORE PRODUCTS
-        </button>
+      <Link
+        to="/"
+        className="bg-primary-default hover:bg-primary-medium text-white px-5 py-2 mt-6 rounded-3xl font-medium"
+      >
+        EXPLORE PRODUCTS
       </Link>
     </div>
   );
