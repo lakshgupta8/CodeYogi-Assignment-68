@@ -1,6 +1,5 @@
 import React from "react";
 import CartRow from "./CartRow";
-
 function CartList({ items, onRemoveItem, onQuantityChange }) {
   return (
     <div className="bg-white overflow-hidden">
