@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CartDetail from "./components/CartDetail";
 import EmptyCart from "./components/EmptyCart";
+import Loading from "./components/Loading";
 
 import { getProduct } from "./api";
 import { Link, useLocation } from "react-router-dom";
@@ -9,16 +10,19 @@ import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
 function CartPage({ cartItems, onRemoveItem, onQuantityChange }) {
   const location = useLocation();
   const [cartItemsData, setCartItemsData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(
     function () {
       const ids = Object.keys(cartItems || {});
+
       if (ids.length === 0) {
         setCartItemsData([]);
-
+        setLoading(false);
         return;
       }
 
+      setLoading(true);
       Promise.all(
         ids.map(function (id) {
           return getProduct(id).then(function (product) {
@@ -31,10 +35,21 @@ function CartPage({ cartItems, onRemoveItem, onQuantityChange }) {
         })
         .catch(function () {
           setCartItemsData([]);
+        })
+        .finally(function () {
+          setLoading(false);
         });
     },
     [cartItems]
   );
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-[80vh]">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col md:px-8 pb-8">
