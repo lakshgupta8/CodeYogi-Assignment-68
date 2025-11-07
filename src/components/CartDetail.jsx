@@ -17,13 +17,13 @@ function CartDetail({ cartItems, onQuantityChange, onRemoveItem }) {
   return (
     <div className="flex flex-col">
       <div className="border border-gray-300 divide-y divide-gray-300">
-        <div className="bg-gray-50 py-2 grid grid-cols-12 text-sm sm:text-lg text-center text-black font-semibold">
+        <div className="bg-gray-50 py-2 hidden sm:grid grid-cols-12 text-lg text-center text-black font-semibold">
           <div className="m-auto col-span-6">
             <h2>Product</h2>
           </div>
-          <h2 className="sm:col-span-2 hidden md:block">Price</h2>
-          <h2 className="col-span-3 sm:col-span-2 md:block">Quantity</h2>
-          <h2 className="col-span-3 sm:col-span-2 md:block">Subtotal</h2>
+          <h2 className="col-span-2">Price</h2>
+          <h2 className="col-span-2">Quantity</h2>
+          <h2 className="col-span-2">Subtotal</h2>
         </div>
         <CartList
           items={cartItems}
@@ -37,7 +37,7 @@ function CartDetail({ cartItems, onQuantityChange, onRemoveItem }) {
               placeholder="Coupon code"
               className="border border-gray-300 text-black px-4 py-2 text-sm w-full md:w-auto"
             />
-            <button className="bg-primary-dark hover:bg-primary-extradark text-white px-6 py-2 rounded font-medium text-sm">
+            <button className="bg-primary-dark hover:bg-primary-extradark text-white px-6 py-2 rounded font-medium text-sm w-full md:w-auto">
               APPLY COUPON
             </button>
           </div>
