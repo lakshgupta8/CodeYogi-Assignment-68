@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CartList from "./CartList";
 import CartTotals from "./CartTotals";
 
 function CartDetail({ cartItems, onQuantityChange, onRemoveItem }) {
-  const [subtotal, setSubtotal] = useState(0);
+  const [subtotal, setSubtotal] = useState(function () {
+    const saved = localStorage.getItem("cartSubtotal");
+    return saved ? Number(saved) : 0;
+  });
+
+  useEffect(
+    function () {
+      localStorage.setItem("cartSubtotal", String(subtotal));
+    },
+    [subtotal]
+  );
 
   function handleUpdateCart() {
     let sum = 0;
