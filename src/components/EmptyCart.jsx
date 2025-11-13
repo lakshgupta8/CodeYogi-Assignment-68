@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import emptycartimage from "/images/emptycart.svg";
 
@@ -26,4 +26,4 @@ function EmptyCart() {
   );
 }
 
-export default EmptyCart;
+export default memo(EmptyCart);

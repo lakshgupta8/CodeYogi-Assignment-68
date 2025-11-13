@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 
 function Pagination() {
@@ -17,4 +17,4 @@ function Pagination() {
   );
 }
 
-export default Pagination;
+export default memo(Pagination);

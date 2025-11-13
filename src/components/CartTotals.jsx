@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 
 function CartTotals({ subtotal }) {
   const total = subtotal;
@@ -28,4 +28,4 @@ function CartTotals({ subtotal }) {
   );
 }
 
-export default CartTotals;
+export default memo(CartTotals);

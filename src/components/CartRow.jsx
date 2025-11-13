@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import { TiDeleteOutline } from "react-icons/ti";
 
@@ -95,4 +95,4 @@ function CartRow({ item, quantity, onQuantityChange, onRemoveItem }) {
   );
 }
 
-export default CartRow;
+export default memo(CartRow);

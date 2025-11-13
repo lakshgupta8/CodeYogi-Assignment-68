@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 
 function Filter({ query, sort, onSearch, onSort }) {
   function handleSearch(event) {
@@ -32,4 +32,4 @@ function Filter({ query, sort, onSearch, onSort }) {
   );
 }
 
-export default Filter;
+export default memo(Filter);

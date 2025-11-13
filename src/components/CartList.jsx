@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import CartRow from "./CartRow";
 function CartList({ items, onRemoveItem, onQuantityChange }) {
   return (
@@ -21,4 +21,4 @@ function CartList({ items, onRemoveItem, onQuantityChange }) {
   );
 }
 
-export default CartList;
+export default memo(CartList);

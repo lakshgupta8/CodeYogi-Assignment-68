@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { Star } from "lucide-react";
 
 function StarRating({ rating }) {
@@ -23,4 +23,4 @@ function StarRating({ rating }) {
   );
 }
 
-export default StarRating;
+export default memo(StarRating);
