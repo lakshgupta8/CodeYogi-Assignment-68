@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import ProductGrid from "./components/ProductGrid";
 import Pagination from "./components/Pagination";

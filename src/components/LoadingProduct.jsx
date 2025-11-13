@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   HiOutlineArrowNarrowLeft,
 } from "react-icons/hi";
 
 function LoadingProduct() {
+  const location = useLocation();
   return (
       <div className="flex flex-col md:px-8 pb-8">
         <Link
