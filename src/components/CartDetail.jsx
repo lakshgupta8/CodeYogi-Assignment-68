@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import CartList from "./CartList";
 import CartTotals from "./CartTotals";
 
@@ -27,9 +27,12 @@ function CartDetail({ cartItems, onQuantityChange, onRemoveItem }) {
     [cartItems]
   );
 
-  function handleUpdateCart() {
-    setSubtotal(calculatedSubtotal);
-  }
+  const handleUpdateCart = useCallback(
+    function () {
+      setSubtotal(calculatedSubtotal);
+    },
+    [calculatedSubtotal]
+  );
 
   return (
     <div className="flex flex-col">

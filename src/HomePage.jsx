@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import Filter from "./components/Filter";
 import ProductGrid from "./components/ProductGrid";
 import Pagination from "./components/Pagination";
@@ -41,13 +41,17 @@ function HomePage() {
     return filtered;
   }, [productList, query, sort])
 
-  function handleSearch(newQuery) {
+  const handleSearch = useCallback(function (newQuery) {
     setQuery(newQuery);
-  }
+  }, [setQuery]);
 
-  function handleSort(sortType) {
+  const handleSort = useCallback(function (sortType) {
     setSort(sortType);
-  }
+  }, [setSort]);
+
+  const handleClearSearch = useCallback(function () {
+    setQuery("");
+  }, [setQuery]);
 
   return (
     <div className="my-8 md:my-16 bg-white py-8 px-9 max-w-xl sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto">
@@ -71,9 +75,7 @@ function HomePage() {
       {!loading && filteredProducts.length === 0 && (
         <NoMatch
           searchQuery={query}
-          onClearSearch={function () {
-            setQuery("");
-          }}
+          onClearSearch={handleClearSearch}
         />
       )}
     </div>
