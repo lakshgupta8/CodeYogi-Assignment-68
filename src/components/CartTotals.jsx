@@ -1,10 +1,6 @@
-import { memo, useMemo } from "react";
+import { memo } from "react";
 
 function CartTotals({ subtotal }) {
-  const total = useMemo(function () {
-    return subtotal;
-  }, [subtotal]);
-
   return (
     <div className="text-gray-800 border border-gray-300 md:w-2/5 md:ml-auto">
       <div className="bg-gray-50 px-4 border-b border-gray-300">
@@ -18,7 +14,7 @@ function CartTotals({ subtotal }) {
 
         <div className="flex py-2">
           <span className="w-1/2">Total</span>
-          <span>${total.toFixed(2)}</span>
+          <span>${subtotal.toFixed(2)}</span>
         </div>
         <div className="py-4">
           <button className="w-full bg-primary-default hover:bg-primary-medium text-white font-semibold py-3 px-4 rounded">

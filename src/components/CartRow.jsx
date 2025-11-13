@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { TiDeleteOutline } from "react-icons/ti";
 
@@ -7,7 +7,7 @@ function CartRow({ item, quantity, onQuantityChange, onRemoveItem }) {
     return item.price * Number(quantity);
   }, [item.price, quantity]);
 
-  function handleChange(event) {
+  const handleChange = useCallback(function (event) {
     const val = event.target.value;
     const num = Number(val);
     if (isNaN(num) || num <= 0) {
@@ -15,11 +15,11 @@ function CartRow({ item, quantity, onQuantityChange, onRemoveItem }) {
     } else {
       onQuantityChange(item.id, num);
     }
-  }
+  }, [onRemoveItem, onQuantityChange, item.id]);
 
-  function handleRemove() {
+  const handleRemove = useCallback(function () {
     onRemoveItem(item.id);
-  }
+  }, [onRemoveItem, item.id]);
 
   return (
     <div className="px-4 py-3 flex flex-col sm:grid grid-cols-12 gap-4 text-center items-center text-gray-800 font-medium">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 import { getProduct } from "./api";
 import NotFound from "./components/NotFound";
@@ -43,11 +43,11 @@ function ProductDetailPage({ onAddToCart }) {
     category = product.category;
   }
 
-  function handleCountChange(event) {
+  const handleCountChange = useCallback(function (event) {
     setCount(Number(event.target.value));
-  }
+  }, [setCount]);
 
-  function handleAddToCart(event) {
+  const handleAddToCart = useCallback(function (event) {
     const button = event.currentTarget;
     button.textContent = "ADDING...";
     button.disabled = true;
@@ -59,11 +59,11 @@ function ProductDetailPage({ onAddToCart }) {
 
     onAddToCart(id, count);
     setCount(1);
-  }
+  }, [onAddToCart, id, count]);
 
-  function handleProductSwitch() {
+  const handleProductSwitch = useCallback(function () {
     setLoading(true);
-  }
+  }, [setLoading]);
 
   return (
     <>
