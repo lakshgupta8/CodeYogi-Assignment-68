@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Filter from "./components/Filter";
 import ProductGrid from "./components/ProductGrid";
 import Pagination from "./components/Pagination";
@@ -20,23 +20,26 @@ function HomePage() {
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("default");
 
-  let filteredProducts = productList.filter(function (item) {
-    return item.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-  });
+  const filteredProducts = useMemo(function () {
+    let filtered = productList.filter(function (item) {
+      return item.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    });
 
-  if (sort === "title") {
-    filteredProducts = filteredProducts.sort(function (a, b) {
-      return a.title.localeCompare(b.title);
-    });
-  } else if (sort === "price-asc") {
-    filteredProducts = filteredProducts.sort(function (a, b) {
-      return a.price - b.price;
-    });
-  } else if (sort === "price-desc") {
-    filteredProducts = filteredProducts.sort(function (a, b) {
-      return b.price - a.price;
-    });
-  }
+    if (sort === "title") {
+      filtered = filtered.sort(function (a, b) {
+        return a.title.localeCompare(b.title);
+      });
+    } else if (sort === "price-asc") {
+      filtered = filtered.sort(function (a, b) {
+        return a.price - b.price;
+      });
+    } else if (sort === "price-desc") {
+      filtered = filtered.sort(function (a, b) {
+        return b.price - a.price;
+      });
+    }
+    return filtered;
+  }, [productList, query, sort])
 
   function handleSearch(newQuery) {
     setQuery(newQuery);

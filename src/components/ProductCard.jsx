@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
 import StarRating from "./StarRating";
 
@@ -11,7 +11,10 @@ function ProductCard({
   thumbnail,
   rating,
 }) {
-  const originalPrice = (price * 100) / (100 - discountPercentage);
+  const originalPrice = useMemo(function () {
+    if (discountPercentage === 0 || discountPercentage == null) return null;
+    return (price * 100) / (100 - discountPercentage);
+  }, [price, discountPercentage]);
 
   return (
     <Link to={"/product/" + id} state={{ from: "home" }}>

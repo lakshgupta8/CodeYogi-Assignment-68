@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import CartList from "./CartList";
 import CartTotals from "./CartTotals";
 
@@ -15,13 +15,20 @@ function CartDetail({ cartItems, onQuantityChange, onRemoveItem }) {
     [subtotal]
   );
 
+  const calculatedSubtotal = useMemo(
+    function () {
+      let sum = 0;
+      cartItems.forEach(function (item) {
+        const q = item.quantity ?? 1;
+        sum += item.price * Number(q);
+      });
+      return sum;
+    },
+    [cartItems]
+  );
+
   function handleUpdateCart() {
-    let sum = 0;
-    cartItems.forEach(function (item) {
-      const q = item.quantity ?? 1;
-      sum += item.price * Number(q);
-    });
-    setSubtotal(sum);
+    setSubtotal(calculatedSubtotal);
   }
 
   return (
