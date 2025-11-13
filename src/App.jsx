@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import ProductDetailPage from "./ProductDetailPage";
@@ -18,9 +18,11 @@ function App() {
     localStorage.setItem("cartItems", JSON.stringify(newCartItems));
   }
 
-  const count = Object.keys(cartItems).reduce(function (prev, current) {
-    return prev + cartItems[current];
-  }, 0);
+  const count = useMemo(function () {
+    return Object.keys(cartItems).reduce(function (prev, current) {
+      return prev + cartItems[current];
+    }, 0);
+  }, [cartItems]);
 
   function handleRemoveFromCart(productId) {
     const newCartItems = { ...cartItems };

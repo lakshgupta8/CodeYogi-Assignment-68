@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import CartDetail from "./components/CartDetail";
 import EmptyCart from "./components/EmptyCart";
 import Loading from "./components/Loading";
-
 import { getProduct } from "./api";
 import { Link, useLocation } from "react-router-dom";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
@@ -12,10 +11,12 @@ function CartPage({ cartItems, onRemoveItem, onQuantityChange }) {
   const [cartItemsData, setCartItemsData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const ids = useMemo(function () {
+    return Object.keys(cartItems || {});
+  }, [cartItems]);
+
   useEffect(
     function () {
-      const ids = Object.keys(cartItems || {});
-
       if (ids.length === 0) {
         setCartItemsData([]);
         setLoading(false);
@@ -40,7 +41,7 @@ function CartPage({ cartItems, onRemoveItem, onQuantityChange }) {
           setLoading(false);
         });
     },
-    [cartItems]
+    [ids, cartItems]
   );
 
   if (loading) {

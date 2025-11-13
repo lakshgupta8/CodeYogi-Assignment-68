@@ -1,9 +1,11 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { TiDeleteOutline } from "react-icons/ti";
 
 function CartRow({ item, quantity, onQuantityChange, onRemoveItem }) {
-  const subtotal = item.price * Number(quantity);
+  const subtotal = useMemo(function () {
+    return item.price * Number(quantity);
+  }, [item.price, quantity]);
 
   function handleChange(event) {
     const val = event.target.value;

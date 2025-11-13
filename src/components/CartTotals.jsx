@@ -1,7 +1,9 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 
 function CartTotals({ subtotal }) {
-  const total = subtotal;
+  const total = useMemo(function () {
+    return subtotal;
+  }, [subtotal]);
 
   return (
     <div className="text-gray-800 border border-gray-300 md:w-2/5 md:ml-auto">
