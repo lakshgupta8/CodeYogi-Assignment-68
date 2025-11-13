@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import noresultimage from "/images/noresult.svg";
 
 function NoMatch({ searchQuery, onClearSearch}) {
@@ -25,4 +25,4 @@ function NoMatch({ searchQuery, onClearSearch}) {
   );
 }
 
-export default NoMatch;
+export default memo(NoMatch);

@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { ImSpinner9 } from "react-icons/im";
 
 function Loading() {
@@ -10,4 +10,4 @@ function Loading() {
   );
 }
 
-export default Loading;
+export default memo(Loading);
