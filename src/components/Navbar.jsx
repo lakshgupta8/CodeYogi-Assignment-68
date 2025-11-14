@@ -13,14 +13,35 @@ function Navbar({ count }) {
             className="h-12 md:h-16"
           />
         </Link>
-        <Link
-          to="/cart"
-          state={{ from: location?.pathname }}
-          className="flex flex-col items-center relative"
-        >
-          <RiShoppingBagLine className="text-primary-default text-3xl md:text-4xl" />
-          <span className="absolute top-3 right-[10] md:top-4 md:right-[14] text-[10px] md:text-xs text-primary-default">{ count }</span>
-        </Link>
+        <div className="flex items-center">
+          <ul>
+            <li className="inline-block mx-4 text-xs md:text-sm text-primary-light hover:text-primary-default">
+              <Link to="/">Home</Link>
+            </li>
+            <li className="inline-block mx-4 text-xs md:text-sm text-primary-light hover:text-primary-default">
+              <Link to="/products">Products</Link>
+            </li>
+            <li className="inline-block mx-4 text-xs md:text-sm text-primary-light hover:text-primary-default">
+              <Link to="/about">About</Link>
+            </li>
+            <li className="inline-block mx-4 text-xs md:text-sm text-primary-light hover:text-primary-default">
+              <Link to="/contact">Contact</Link>
+            </li>
+            <li className="inline-block mx-4 text-xs md:text-sm text-primary-light hover:text-primary-default">
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+          <Link
+            to="/cart"
+            state={{ from: location?.pathname }}
+            className="flex flex-col items-center relative"
+          >
+            <RiShoppingBagLine className="text-primary-default text-3xl md:text-4xl" />
+            <span className="absolute top-3 right-[10] md:top-4 md:right-[14] text-[10px] md:text-xs text-primary-default">
+              {count}
+            </span>
+          </Link>
+        </div>
       </div>
     </div>
   );
