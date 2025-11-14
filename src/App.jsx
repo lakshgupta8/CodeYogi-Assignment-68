@@ -1,13 +1,19 @@
 import { useState, useMemo, useCallback } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "./HomePage";
 import ProductDetailPage from "./ProductDetailPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CartPage from "./CartPage";
+import LoginPage from "./LoginPage";
+import SignUpPage from "./SignUpPage";
+import ForgotPasswordPage from "./ForgotPasswordPage";
 import NotFound from "./components/NotFound";
 
 function App() {
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login" || location.pathname === "/signup" || location.pathname === "/forgot-password";
+
   const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || {};
   const [cartItems, setCartItems] = useState(savedCartItems);
 
@@ -43,7 +49,7 @@ function App() {
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
-      <Navbar count={count} />
+      {!isLoginPage && <Navbar count={count} />}
       <div className="flex-1">
         <Routes>
           <Route index element={<HomePage />} />
@@ -61,10 +67,13 @@ function App() {
               />
             }
           />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-      <Footer />
+      {!isLoginPage && <Footer />}
     </div>
   );
 }
