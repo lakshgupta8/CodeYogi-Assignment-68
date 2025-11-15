@@ -1,3 +1,4 @@
+import { useMemo, useCallback } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaAmazon } from "react-icons/fa";
 import { HiOutlineUser, HiOutlineLockClosed } from "react-icons/hi";
@@ -5,17 +6,25 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 function LoginPage() {
-  function callLoginApi() {
-    console.log("Logging in with:", values.username, values.password);
-    navigate("/");
-  }
+  const navigate = useNavigate();
+  const callLoginApi = useCallback(
+    (values) => {
+      console.log("Logging in with:", values.username, values.password);
+      navigate("/");
+    },
+    [navigate]
+  );
 
-  const validationSchema = Yup.object({
-    username: Yup.string().required("Username is required"),
-    password: Yup.string()
-      .required("Password is required")
-      .min(8, "Password must be at least 8 characters long"),
-  });
+  const validationSchema = useMemo(
+    () =>
+      Yup.object({
+        username: Yup.string().required("Username is required"),
+        password: Yup.string()
+          .required("Password is required")
+          .min(8, "Password must be at least 8 characters long"),
+      }),
+    []
+  );
 
   const {
     handleSubmit,
@@ -34,7 +43,6 @@ function LoginPage() {
     validationSchema: validationSchema,
   });
 
-  const navigate = useNavigate();
 
   return (
     <div
@@ -43,6 +51,15 @@ function LoginPage() {
         backgroundImage: 'url("/images/loginbg.svg")',
       }}
     >
+      <div className="absolute top-4 right-4">
+        <Link
+          to="/"
+          className="text-white text-sm hover:underline focus:text-gray-800"
+        >
+          Continue without login
+        </Link>
+      </div>
+
       <div className="w-full max-w-md flex flex-col px-4 gap-6 text-white">
         <FaAmazon className="text-9xl mb-6 mx-auto" />
         <h1 className="text-2xl font-bold text-center">

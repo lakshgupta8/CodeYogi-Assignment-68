@@ -1,3 +1,4 @@
+import { useMemo, useCallback } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaAmazon } from "react-icons/fa";
 import {
@@ -10,31 +11,39 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 function SignUpPage() {
-  function callSignInApi() {
-    console.log(
-      "Logging in with:",
-      values.username,
-      values.email,
-      values.password
-    );
-    alert(
-      `Account created for ${values.username}. \n Verification link sent to ${values.email}`
-    );
-    navigate("/");
-  }
+  const navigate = useNavigate();
+  const callSignInApi = useCallback(
+    (values) => {
+      console.log(
+        "Signing up with:",
+        values.username,
+        values.email,
+        values.password
+      );
+      alert(
+        `Account created for ${values.username}.\nVerification link sent to ${values.email}`
+      );
+      navigate("/");
+    },
+    [navigate]
+  );
 
-  const validationSchema = Yup.object({
-    username: Yup.string().required("Username is required"),
-    email: Yup.string()
-      .required("Email is required")
-      .email("Invalid email format"),
-    password: Yup.string()
-      .required("Password is required")
-      .min(8, "Password must be at least 8 characters long"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm Password is required"),
-  });
+  const validationSchema = useMemo(
+    () =>
+      Yup.object({
+        username: Yup.string().required("Username is required"),
+        email: Yup.string()
+          .required("Email is required")
+          .email("Invalid email format"),
+        password: Yup.string()
+          .required("Password is required")
+          .min(8, "Password must be at least 8 characters long"),
+        confirmPassword: Yup.string()
+          .oneOf([Yup.ref("password"), null], "Passwords must match")
+          .required("Confirm Password is required"),
+      }),
+    []
+  );
 
   const {
     handleSubmit,
@@ -55,7 +64,6 @@ function SignUpPage() {
     validationSchema: validationSchema,
   });
 
-  const navigate = useNavigate();
 
   return (
     <div
@@ -64,6 +72,15 @@ function SignUpPage() {
         backgroundImage: 'url("/images/loginbg.svg")',
       }}
     >
+      <div className="absolute top-4 right-4">
+        <Link
+          to="/"
+          className="text-white text-sm hover:underline focus:text-gray-800"
+        >
+          Continue without login
+        </Link>
+      </div>
+
       <div className="w-full max-w-md flex flex-col px-4 gap-6 text-white">
         <FaAmazon className="text-9xl mb-6 mx-auto" />
         <h1 className="text-2xl font-bold text-center">Create Your Account</h1>

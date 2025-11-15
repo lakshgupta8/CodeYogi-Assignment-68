@@ -1,3 +1,4 @@
+import { useMemo, useCallback } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaAmazon } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
@@ -5,17 +6,25 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 function ForgotPasswordPage() {
-  function callForgotPasswordApi() {
-    console.log("Password reset requested for:", values.email);
-    alert(`Password reset link sent to ${values.email}`);
-    navigate("/login");
-  }
+  const navigate = useNavigate();
+  const callForgotPasswordApi = useCallback(
+    (values) => {
+      console.log("Password reset requested for:", values.email);
+      alert(`Password reset link sent to ${values.email}`);
+      navigate("/login");
+    },
+    [navigate]
+  );
 
-  const validationSchema = Yup.object({
-    email: Yup.string()
-      .required("Email is required")
-      .email("Invalid email format"),
-  });
+  const validationSchema = useMemo(
+    () =>
+      Yup.object({
+        email: Yup.string()
+          .required("Email is required")
+          .email("Invalid email format"),
+      }),
+    []
+  );
 
   const {
     handleSubmit,
@@ -33,7 +42,6 @@ function ForgotPasswordPage() {
     validationSchema: validationSchema,
   });
 
-  const navigate = useNavigate();
 
   return (
     <div
