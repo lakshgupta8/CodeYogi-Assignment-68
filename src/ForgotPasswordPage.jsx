@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 function ForgotPasswordPage() {
+  const navigate = useNavigate();
   const callForgotPasswordApi = useCallback(
     (values) => {
       console.log("Password reset requested for:", values.email);
@@ -41,7 +42,6 @@ function ForgotPasswordPage() {
     validationSchema: validationSchema,
   });
 
-  const navigate = useNavigate();
 
   return (
     <div

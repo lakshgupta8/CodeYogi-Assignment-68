@@ -58,14 +58,25 @@ function Navbar({ count }) {
 
           <nav className="hidden sm:flex items-center">
             <ul className="flex">
-              {navLinks.map((link) => (
-                <li
-                  key={link.to}
-                  className="mx-2 text-sm text-primary-default hover:text-primary-light"
-                >
-                  <Link to={link.to}>{link.name}</Link>
-                </li>
-              ))}
+              {navLinks.map((link) => {
+                const isActive =
+                  link.to === "/"
+                    ? location.pathname === "/"
+                    : location.pathname.startsWith(link.to);
+
+                return (
+                  <li
+                    key={link.to}
+                    className={`mx-2 text-sm ${
+                      isActive
+                        ? "text-gray-700 font-semibold"
+                        : "text-primary-default hover:text-primary-light"
+                    }`}
+                  >
+                    <Link to={link.to}>{link.name}</Link>
+                  </li>
+                );
+              })}
             </ul>
 
             <Link

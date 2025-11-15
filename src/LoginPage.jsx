@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 function LoginPage() {
+  const navigate = useNavigate();
   const callLoginApi = useCallback(
     (values) => {
       console.log("Logging in with:", values.username, values.password);
@@ -42,7 +43,6 @@ function LoginPage() {
     validationSchema: validationSchema,
   });
 
-  const navigate = useNavigate();
 
   return (
     <div

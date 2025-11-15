@@ -6,15 +6,11 @@ function MobileMenu({ isOpen, onClose, navLinks, count, location }) {
   if (!isOpen) return null;
 
   return (
-    <div
-      className="fixed inset-0 bg-black/60 z-50 sm:hidden"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 bg-black/60 z-50 sm:hidden" onClick={onClose}>
       <div
         className="absolute top-0 right-0 h-full w-64 bg-gray-100 shadow-lg flex flex-col px-4"
         onClick={(e) => e.stopPropagation()}
       >
-
         <button
           onClick={onClose}
           className="absolute top-4 right-2 text-primary-default p-1"
@@ -29,17 +25,28 @@ function MobileMenu({ isOpen, onClose, navLinks, count, location }) {
 
         <nav className="flex-1 py-4 overflow-y-auto">
           <ul className="space-y-4">
-            {navLinks.map((link) => (
-              <li key={link.to}>
-                <Link
-                  to={link.to}
-                  onClick={onClose}
-                  className="block text-lg text-primary-default hover:text-primary-light py-2"
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const isActive =
+                link.to === "/"
+                  ? location.pathname === "/"
+                  : location.pathname.startsWith(link.to);
+
+              return (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    onClick={onClose}
+                    className={`block text-lg py-2 ${
+                      isActive
+                        ? "text-gray-700 font-semibold"
+                        : "text-primary-default hover:text-primary-light"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -50,7 +57,15 @@ function MobileMenu({ isOpen, onClose, navLinks, count, location }) {
             onClick={onClose}
             className="flex items-center justify-between"
           >
-            <span className="text-primary-default font-medium">Your Cart</span>
+            <span
+              className={
+                location.pathname === "/cart"
+                  ? "text-gray-700 font-semibold"
+                  : "text-primary-default font-medium"
+              }
+            >
+              Your Cart
+            </span>
             <div className="relative">
               <HiOutlineShoppingBag className="text-2xl text-primary-default" />
               {count > 0 && (

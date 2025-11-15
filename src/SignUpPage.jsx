@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 function SignUpPage() {
+  const navigate = useNavigate();
   const callSignInApi = useCallback(
     (values) => {
       console.log(
@@ -63,7 +64,6 @@ function SignUpPage() {
     validationSchema: validationSchema,
   });
 
-  const navigate = useNavigate();
 
   return (
     <div
