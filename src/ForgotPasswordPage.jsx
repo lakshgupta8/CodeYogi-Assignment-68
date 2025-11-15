@@ -2,6 +2,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { FaAmazon } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 function ForgotPasswordPage() {
   function callForgotPasswordApi() {
@@ -10,11 +11,26 @@ function ForgotPasswordPage() {
     navigate("/login");
   }
 
-  const { handleSubmit, values, handleChange } = useFormik({
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .required("Email is required")
+      .email("Invalid email format"),
+  });
+
+  const {
+    handleSubmit,
+    values,
+    handleChange,
+    errors,
+    handleBlur,
+    touched,
+    isValid,
+  } = useFormik({
     initialValues: {
       email: "",
     },
     onSubmit: callForgotPasswordApi,
+    validationSchema: validationSchema,
   });
 
   const navigate = useNavigate();
@@ -36,22 +52,37 @@ function ForgotPasswordPage() {
             password.
           </p>
 
-          <div className="relative flex items-center">
-            <HiOutlineMail className="absolute left-3 w-5 h-5 pointer-events-none" />
-            <input
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-              className="w-full p-3 pl-10 border border-white focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent rounded placeholder-white bg-transparent"
-              required
-            />
+          <div>
+            <div className="relative flex items-center">
+              <HiOutlineMail className="absolute left-3 w-5 h-5 pointer-events-none opacity-80" />
+              <label htmlFor="email" className="sr-only">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={`w-full p-3 pl-10 border ${
+                  touched.email && errors.email
+                    ? "border-primary-medium"
+                    : "border-white"
+                } transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent rounded placeholder-white bg-transparent`}
+              />
+            </div>
+            {touched.email && errors.email && (
+              <p className="text-primary-medium text-sm mt-1 pl-1">
+                {errors.email}
+              </p>
+            )}
           </div>
 
           <button
             type="submit"
-            disabled={!values.email.trim()}
+            disabled={!isValid}
             className="w-full bg-white text-[#38A5FF] py-3 rounded font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
           >
             Send Link
@@ -63,7 +94,7 @@ function ForgotPasswordPage() {
               to="/login"
               className="underline hover:underline-offset-2 ml-1"
             >
-              Sign in
+              Login
             </Link>
           </div>
         </form>
